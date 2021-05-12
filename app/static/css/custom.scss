@@ -6,7 +6,7 @@ $enable-smooth-scroll: false;
 $primary-color: #1C4D65;
 $secondary-color: #ababee;
 $hover-color: lighten($primary-color, 10%);
-$body-font: '', 'Helvetica', sans-serif;
+$body-font: 'Montserrat', 'Helvetica', sans-serif;
 $title-font: 'Philosopher', 'Helvetica', sans-serif;
 
 @import "../scss/bootstrap-reboot.scss";
@@ -305,7 +305,7 @@ button:hover, .btn:hover, input[type="submit"]:hover, .menu-link:hover {
 #home-logo {
   position: relative;
   display: block;
-  margin: 5rem auto 3rem;
+  margin: 5rem auto 11rem;
   height: calc(80px + 3vw);
 }
 
