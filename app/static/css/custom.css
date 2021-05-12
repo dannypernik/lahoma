@@ -5643,7 +5643,7 @@ progress {
 }
 
 body {
-  font-family: "Montserrat", "Helvetica", sans-serif;
+  font-family: "", "Helvetica", sans-serif;
   color: #1C4D65;
   font-size: 1.6rem;
 }
@@ -5817,7 +5817,7 @@ button:hover, .btn:hover, input[type=submit]:hover, .menu-link:hover {
 }
 
 .page-title {
-  font-family: "Montserrat Alternates", "Helvetica", sans-serif;
+  font-family: "Philosopher", "Helvetica", sans-serif;
   font-size: calc(1.75rem + 2vw);
 }
 
@@ -5885,7 +5885,7 @@ button:hover, .btn:hover, input[type=submit]:hover, .menu-link:hover {
 }
 
 #home {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/student-xl.webp) center top no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/trees.jpg) center top no-repeat;
   background-attachment: fixed;
   background-size: cover;
 }
@@ -5896,7 +5896,7 @@ button:hover, .btn:hover, input[type=submit]:hover, .menu-link:hover {
   background-size: cover;
 }
 
-@media screen and (max-width: 1200px) {
+/*@media screen and (max-width: 1200px) {
   #home {
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/student-lg.webp);
   }
@@ -5905,6 +5905,8 @@ button:hover, .btn:hover, input[type=submit]:hover, .menu-link:hover {
     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../img/student2-lg.webp);
   }
 }
+
+// Mobile backgrounds //
 @media screen and (max-width: 575px) {
   #home {
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/student.jpg);
@@ -5915,7 +5917,7 @@ button:hover, .btn:hover, input[type=submit]:hover, .menu-link:hover {
     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../img/student2.jpg);
     background-attachment: scroll;
   }
-}
+}*/
 #home-logo {
   position: relative;
   display: block;
@@ -5924,8 +5926,9 @@ button:hover, .btn:hover, input[type=submit]:hover, .menu-link:hover {
 }
 
 #home-title {
-  font-family: "Montserrat Alternates", sans-serif;
-  font-size: calc(1.8rem + 3vw);
+  margin-top: 11rem;
+  font-family: "Philosopher", "Helvetica", sans-serif;
+  font-size: calc(3.8rem + 3vw);
   font-weight: 400;
 }
 

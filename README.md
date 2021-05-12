@@ -1,1 +1,1 @@
-# openpathtutoring
+# Lahoma Healing Arts
