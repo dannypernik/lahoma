@@ -1,62 +1,141 @@
-{% extends "bootstrap/base.html" %}
-
-{% block title %}
-  {% if title %}
-    {{ title }} - Ascended Learning{% else %}Ascended Learning{% endif %}
-{% endblock title %}
-
-{% block head %}
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5QY115CRR5"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-5QY115CRR5');
-  </script>
-  
-  {{ super() }}
-{% endblock head %}
-
-{% block styles %}
-  {{super()}}
-  <link rel="stylesheet" href="{{url_for('.static', filename='css/custom.css')}}">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Montserrat+Alternates&family=Montserrat:wght@400&display=swap"
-    rel="stylesheet">
-{% endblock styles %}
-
-{% block navbar %}
-  <!--<nav class="navbar navbar-default">
-    <div class="container">
-      <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{{ url_for('index') }}">Ascended Learning</a>
-      </div>
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-          {% if current_user.is_anonymous %}
-            <li><a href="{{ url_for('login') }}">Login</a></li>
-          {% else %}
-            <li><a href="{{ url_for('profile', username=current_user.username) }}">Profile</a></li>
-            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+<!DOCTYPE html>
+<html>
+  <head>
+    {% block head %}
+      <title>
+        {% block title %}
+          {% if title %}
+            {{ title }} -
           {% endif %}
-        </ul>
-      </div>
-    </div>
-  </nav>-->
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      {% for message in messages %}
-        <div class="alert alert-info" role="alert">{{ message }}</div>
-      {% endfor %}
-    {% endif %}
-  {% endwith %}
-{% endblock navbar %}
+            Lahoma Healing Arts
+        {% endblock title %}
+      </title>
 
-{% block content %}{% endblock content %}
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      {% block styles %}
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Krona+One&family=Philosopher&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+      {% endblock styles %}
+
+      <!-- Google Tag Manager -->
+
+      <!-- End Google Tag Manager -->
+
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+
+      <!-- generics --
+      <link rel="icon" href="{{ url_for('static', filename='img/favicons/favicon-32.png') }}" sizes="32x32">
+      <link rel="icon" href="{{ url_for('static', filename='img/favicons/favicon-128.png') }}" sizes="128x128">
+      <link rel="icon" href="{{ url_for('static', filename='img/favicons/favicon-192.png') }}" sizes="192x192">
+
+      <!-- Android --
+      <link rel="shortcut icon" sizes="196x196" href="{{ url_for('static', filename='img/favicons/favicon-196.png') }}">
+
+      <!-- iOS --
+      <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/favicons/favicon-152.png') }}" sizes="152x152">
+      <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/favicons/favicon-180.png') }}" sizes="180x180">
+
+      <!-- Windows 8.1 + IE11 and above --
+      <meta name="msapplication-config" content="{{ url_for('static', filename='img/favicons/browserconfig.xml') }}" />-->
+
+    {% endblock head %}
+  </head>
+
+  <body>
+    {% block navbar %}
+      <div class="site-nav">
+        <div class="row justify-content-center">
+          <div class="col-10">
+            <div class="row">
+              <div class="col-9">
+                <a href="{{ url_for('index') }}">
+                  <img id="nav-img" src="{{ url_for('static', filename='img/logo-header.svg') }}" alt="Open Path Tutoring">
+                </a>
+              </div>
+              <div class="col-3">
+                <a id="menu-btn" href="#" data-drawer-trigger aria-controls="site-menu" aria-expanded="false">
+                  <div id="menu-title" class="d-none d-sm-block">Menu</div>
+                  <img id="menu-icon" src="{{ url_for('static', filename='img/menu.svg') }}" alt="">
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-info" role="alert">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <section class="drawer" id="site-menu" data-drawer-target>
+        <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+        <div class="drawer__wrapper">
+          <div class="drawer__header">
+            <div class="drawer__title">
+
+            </div>
+            <button class="drawer__close" data-drawer-close aria-label="Close Drawer"></button>
+          </div>
+          <div class="drawer__content">
+            <a href="{{ url_for('index') }}">
+              <div class="menu-link">
+                <p>Home</p>
+              </div>
+            </a>
+            <a href="{{ url_for('reviews') }}">
+              <div class="menu-link">
+                <p>Reviews</p>
+              </div>
+            </a>
+            <a href="{{ url_for('about') }}">
+              <div class="menu-link">
+                <p>About</p>
+              </div>
+            </a>
+            <a href="{{ url_for('index', _anchor='contact') }}">
+              <div class="menu-link">
+                <p>Contact</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+    {% endblock navbar %}
+
+    {% block content %}{% endblock content %}
+
+    {% block footer %}
+      <footer class="footer">
+        <div class="row justify-content-center">
+          <div class="col-sm-10">
+            <p class="mb-2 mt-3">
+              <img src="{{ url_for('static', filename='img/phone.svg') }}"/>
+              <a class="ms-2 white" href="tel:+1"></a>
+            </p>
+            <p class="mb-2">
+              <img src="{{ url_for('static', filename='img/mail.svg') }}"/>
+              <a class="ms-2 white" href="mailto:"></a>
+            </p>
+            <p class="">
+              <span class="me-3 h2">&copy;</span><script>document.write(new Date().getFullYear())</script>
+              Lahoma Healing Arts
+            </p>
+          </div>
+        </div>
+      </footer>
+    {% endblock footer %}
+
+    {% block scripts %}
+      <script type="text/javascript" src="{{ url_for('static', filename='js/menu.js') }}"></script>
+      <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
+    {% endblock scripts %}
+  </body>
+</html>

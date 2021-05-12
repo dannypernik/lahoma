@@ -9,13 +9,6 @@ import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
 from flask_bootstrap import Bootstrap
 from flask_mailman import Mail
-from sentry_sdk.integrations.flask import FlaskIntegration
-
-sentry_sdk.init(
-    dsn="https://7b07a0f6a2244061a029e1deaa863161@o473156.ingest.sentry.io/5507799",
-    integrations=[FlaskIntegration()],
-    traces_sample_rate=1.0
-)
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -27,6 +20,7 @@ bootstrap = Bootstrap(app)
 mail = Mail(app)
 
 from app import routes, models, errors
+app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 if not app.debug:
     if app.config['MAIL_SERVER']:
@@ -54,4 +48,4 @@ if not app.debug:
         app.logger.addHandler(file_handler)
 
         app.logger.setLevel(logging.INFO)
-        app.logger.info('Ascended Learning')
+        app.logger.info('Open Path Tutoring')

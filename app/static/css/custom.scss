@@ -1,34 +1,83 @@
-@import "bootstrap.css";
+$font-size-root: 10px;
+$lead-font-size: calc(1.5rem + 0.7vw) !important;
+$lead-font-weight: inherit;
+$spacer: 2rem;
+$enable-smooth-scroll: false;
+$primary-color: #1C4D65;
+$secondary-color: #ababee;
+$hover-color: lighten($primary-color, 10%);
+$body-font: '', 'Helvetica', sans-serif;
+$title-font: 'Philosopher', 'Helvetica', sans-serif;
 
-$primary-color: #171D96;
-$hover-color: lighten($primary-color, 40%);
-$body-font: 'Montserrat', 'Helvetica', sans-serif;
-$title-font: 'Montserrat Alternates', 'Helvetica', sans-serif;
+@import "../scss/bootstrap-reboot.scss";
+@import "bootstrap/bootstrap-grid.min.css";
+@import "../scss/bootstrap-utilities.scss";
+@import "../scss/_type.scss";
+@import "../scss/_buttons.scss";
+
+@import "menu.css";
+
+// Sitewide stylings //
 
 body {
   font-family: $body-font;
   color: $primary-color;
+  font-size: 1.6rem;
 }
 
-@media (max-width: 575px) {
+p {
+  margin-bottom: 2rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 2rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+@media screen and (max-width: 575px) {
   h1 {
-    font-size: 2.125rem;
+    font-size: 2rem;
   }
   h2 {
-    font-size: 1.625rem;
+    font-size: 1.75rem;
   }
   h3 {
     font-size: 1.5rem;
   }
 }
 
-.justify-content-center {
-  -ms-flex-pack: center !important;
-  justify-content: center !important;
+.row {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 input, textarea {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   line-height: 2.5rem;
   padding: 1rem;
   border: none;
@@ -43,66 +92,227 @@ input:focus, textarea:focus {
 
 input[type="submit"] {
   margin-top: 1.5rem;
-  background-color: transparent;
-  color: $primary-color;
-  border: 2px solid $primary-color;
-  font-size: 1.75rem;
-  transition: 0.3s;
-}
-
-button {
-  background-color: transparent;
-  border: 2px solid $primary-color;
-  padding: 10px;
-  transition: 0.3s;
-}
-
-button.lg {
-  font-size: calc(125% + 1vw);
-}
-
-.inverse button {
+  background-color: $primary-color;
   color: white;
+  border: 2px solid $primary-color;
+  font-size: 1.9rem;
+  transition: 0.3s;
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+  color: $primary-color;
+}
+
+a:hover {
+  color: $primary-color;
+}
+
+a.white:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+a:hover h2 {
+  font-weight: 600;
+}
+
+a:before {
+  display: block;
+  font-weight: 600;
+  content: attr(data-text);
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+button, .btn {
+  display: block;
+  margin: 2rem auto;
+  padding: 1rem 2rem;
+  background-color: $primary-color;
+  border: 2px solid $primary-color;
+  color: white;
+  transition: 0.3s;
+  font-size: 1.7rem;
+}
+
+.white {
+  color: white;
+}
+
+.btn.clr {
+  background-color: transparent;
   border-color: white;
 }
 
-button:hover, input[type="submit"]:hover {
+.btn.sec {
+  color: $primary-color;
+  border-color: $primary-color;
+  background-color: transparent;
+  padding: 0.5rem 2rem;
+}
+
+button:hover, .btn:hover, input[type="submit"]:hover, .menu-link:hover {
   background-color: $hover-color;
   border-color: $hover-color;
   color: white;
 }
 
-.navbar {
-  min-height: 88px;
+.drawer__close:hover {
   background-color: white;
 }
 
-.navbar .container {
-  margin-top: 2rem;
-}
-
-.navbar-default .navbar-brand {
-  font-family: "Montserrat Alternates", sans-serif;
-  font-weight: 400;
-  font-size: 44px;
+.img-fluid {
+  max-width: 100%;
+  height: auto;
 }
 
 .alert {
+  width: 100%;
+  padding: 0.5rem 0;
   text-align: center;
   font-size: 1.5rem;
   margin-bottom: 0;
 }
 
+.alert-info {
+  color: #004085;
+  background-color: #cce5ff;
+  border-color: #b8daff;
+}
+
+.alert a {
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
+.page-start {
+  padding-top: calc(8rem + 3vw);
+}
+
+.page-title {
+  font-family: $title-font;
+  font-size: calc(1.75rem + 2vw);
+}
+
+.content {
+  flex: 1 0 auto;
+}
+
+.footer {
+  padding: 20px;
+  background-color: $primary-color;
+  color: white;
+  margin-top: 15rem;
+}
+
+// Nav //
+
+#nav-img {
+  height: 36px;
+  margin: 12px 0;
+  max-width: 100%;
+}
+
+#menu-title {
+  padding-top: 2px;
+}
+
+#menu-btn {
+  display: flex;
+  justify-content: flex-end;
+  margin: 17px 0 17px auto;
+  color: white;
+  text-decoration: none;
+}
+
+#menu-btn:hover, #menu-btn:focus {
+  text-decoration: none;
+}
+
+#menu-icon {
+  height: 26px;
+  padding-left: 15px;
+}
+
+.drawer__content a {
+  display: inline;
+}
+
+.menu-link {
+  height: 60px;
+  border-bottom: 1px solid #ddd;
+  color: $primary-color;
+  transition: 0.3s;
+}
+
+.menu-link p {
+  padding: 1.7rem;
+}
+
+.site-nav {
+  height: 60px;
+  position: fixed;
+  left: 0;
+  width: 100%;
+  background-color: $primary-color;
+  border: 1px solid $primary-color;
+  z-index: 5;
+}
+
+// Home page
+
+// X-large backgrounds //
+
+#home {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/trees.jpg) center top no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+#free-trial {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../img/student2-xl.webp) center top no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+// Med-Large backgrounds //
+/*@media screen and (max-width: 1200px) {
+  #home {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/student-lg.webp);
+  }
+
+  #free-trial {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../img/student2-lg.webp);
+  }
+}
+
+// Mobile backgrounds //
+@media screen and (max-width: 575px) {
+  #home {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/student.jpg);
+    background-attachment: scroll;
+  }
+
+  #free-trial {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../img/student2.jpg);
+    background-attachment: scroll;
+  }
+}*/
+
 #home-logo {
   position: relative;
   display: block;
-  margin: calc(8rem + 3vw) auto calc(3rem);
+  margin: 5rem auto 3rem;
   height: calc(80px + 3vw);
 }
 
 #home-title {
-  font-family: "Montserrat Alternates", sans-serif;
-  font-size: calc(1.8rem + 3vw);
+  margin-top: 11rem;
+  font-family: $title-font;
+  font-size: calc(3.8rem + 3vw);
   font-weight: 400;
 }
 
@@ -113,89 +323,70 @@ button:hover, input[type="submit"]:hover {
   font-weight: 700;
 }
 
-.home-section .row {
-  width: 100%;
-  margin: auto;
+.grecaptcha-badge {
+  visibility: hidden;
 }
 
-.home-section.white {
+.home-nav {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+}
+
+.home-nav li {
+  list-style: none;
+}
+
+.home-nav a {
+  color: white;
+  font-size: 2rem;
+  text-decoration: none;
+  padding: 0 20px;
+  text-transform: capitalize;
+}
+
+.home-nav a:focus, .home-nav a:hover {
+  font-weight: 600;
+}
+
+.home-section {
   min-height: 100vh;
   overflow: auto;
+  padding-top: calc(4rem + 3vw);
 }
 
-.home-section.white a {
-  color: $primary-color;
+.home-section button {
+  margin: calc(3rem + 1vw) auto 0;
 }
 
 .home-section.inverse {
-  min-height: 100vh;
-  overflow: auto;
   color: white;
-}
-
-#home-1 {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/student.jpg) center center no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-}
-
-.home-section.white > .row {
-  margin-top: calc(4rem + 3vw);
-}
-
-#home-3 {
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../img/student2.jpg) center center no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-}
-
-@media screen and (max-width: 575px) {
-  #home-1, #home-3 {
-    background-attachment: scroll;
-  }
-}
-
-#home-3 > .row {
-  margin-top: calc(1rem + 5vw);
 }
 
 .home-section.inverse a {
   color: white;
 }
 
-.home-header {
-  font-family: $title-font;
-  font-size: calc(1.75rem + 2vw);
-  margin-bottom: 2rem;
-}
-
-.home-section button {
-  display: block;
-  margin: calc(3rem + 2vw) auto 0;
-}
-
 .home-next {
   display: table;
-  margin: calc(2rem + 3vw) auto 3rem;
+  margin: calc(2rem + 1vw) auto 3rem;
   text-align: center;
 }
 
-.home-next a {
-  text-decoration: none;
-}
-
-.home-next a:hover h2 {
-  font-weight: 600;
+.bi-chevron-down {
+  font-size: 1rem;
 }
 
 .usp {
-  margin-top: calc(2rem + 3vw);
+  margin-top: calc(2rem + 2vw);
 }
 
 .usp-icon {
   width: 7rem;
   height: 7rem;
-  fill: #7ac534;
+  fill: $secondary-color;
   margin-bottom: 2rem;
 }
 
@@ -205,4 +396,20 @@ button:hover, input[type="submit"]:hover {
 
 .usp-text {
   color: #888;
+}
+
+// About page //
+
+.profile-pic {
+  display: block;
+  border-radius: 100%;
+  margin: 0 auto 2rem;
+  max-height: 155px;
+}
+
+// Reviews page //
+
+.review-img {
+  width: 100px;
+  margin-bottom: 2rem;
 }

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash, redirect, url_for, request, send_from_directory
+from flask import Flask, render_template, flash, Markup, redirect, url_for, request, send_from_directory
 from app import app, db
 from app.forms import InquiryForm, EmailForm, SignupForm, LoginForm, EditProfileForm
 from flask_login import current_user, login_user, logout_user, login_required
@@ -18,16 +18,23 @@ def before_request():
 def index():
     form = InquiryForm()
     if form.validate_on_submit():
-        user = User(first_name=form.first_name.data, email=form.email.data)
-        subject = form.subject.data
+        user = User(first_name=form.first_name.data, email=form.email.data, phone=form.phone.data)
         message = form.message.data
         db.session.add(user)
         db.session.commit()
-        send_inquiry_email(user, subject, message)
-        flash("Thank you for your message. We will be in touch!")
+        send_inquiry_email(user, message)
         print(app.config['ADMINS'])
+        flash("Thank you for your message. We will be in touch!")
         return redirect(url_for('index'))
     return render_template('index.html', form=form)
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/reviews')
+def reviews():
+    return render_template('reviews.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
