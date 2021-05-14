@@ -1,0 +1,24 @@
+<section class="drawer" id="site-menu" data-drawer-target>
+  <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+  <div class="drawer__wrapper">
+    <div class="drawer__header">
+      <div class="drawer__title">
+
+      </div>
+      <button class="drawer__close" data-drawer-close aria-label="Close Drawer"></button>
+    </div>
+    <div class="drawer__content">
+      <a href="#home">
+        <div class="menu-link">
+          <p>Home</p>
+        </div>
+      </a>
+
+      <a href="{{ url_for('index', _anchor='contact') }}">
+        <div class="menu-link">
+          <p>Contact</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
