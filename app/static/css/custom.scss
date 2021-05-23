@@ -7,7 +7,7 @@ $primary-color: #1C4D65;
 $secondary-color: #ababee;
 $hover-color: lighten($primary-color, 10%);
 $body-font: 'Montserrat', 'Helvetica', sans-serif;
-$title-font: 'Philosopher', 'Helvetica', sans-serif;
+$title-font: 'Montserrat', 'Helvetica', sans-serif;
 
 @import "../scss/bootstrap-reboot.scss";
 @import "bootstrap/bootstrap-grid.min.css";
@@ -265,34 +265,30 @@ button:hover, .btn:hover, input[type="submit"]:hover, .menu-link:hover {
 // Home page
 
 // X-large backgrounds //
+// #home photo by Phoebe Strafford on Unsplash
+// https://unsplash.com/@phoebeann
 
 #home {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/trees.jpg) center top no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../img/trees.jpg) center top no-repeat;
   background-attachment: fixed;
   background-size: cover;
-}
-
-#free-trial {
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../img/student2-xl.webp) center top no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 // Med-Large backgrounds //
-/*@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1200px) {
   #home {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/student-lg.webp);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../img/trees-md.jpg);
   }
-
-  #free-trial {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../img/student2-lg.webp);
-  }
-}*/
+}
 
 // Mobile backgrounds //
 @media screen and (max-width: 575px) {
   #home {
-    //background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/student.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../img/trees-sm.jpg);
     background-attachment: scroll;
   }
 
@@ -306,7 +302,7 @@ button:hover, .btn:hover, input[type="submit"]:hover, .menu-link:hover {
   position: relative;
   display: block;
   margin: 5rem auto 11rem;
-  height: calc(80px + 3vw);
+  height: calc(222px + 3vw);
 }
 
 #home-title {
@@ -329,8 +325,9 @@ button:hover, .btn:hover, input[type="submit"]:hover, .menu-link:hover {
 
 .home-nav {
   position: absolute;
-  left: 0;
-  width: 100%;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
   background-color: transparent;
   border: none;
 }
@@ -343,8 +340,14 @@ button:hover, .btn:hover, input[type="submit"]:hover, .menu-link:hover {
   color: white;
   font-size: 2rem;
   text-decoration: none;
-  padding: 0 20px;
-  text-transform: capitalize;
+  padding: 4rem 0;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 449px) {
+  .home-nav a {
+    font-size: 1.75rem;
+  }
 }
 
 .home-nav a:focus, .home-nav a:hover {
