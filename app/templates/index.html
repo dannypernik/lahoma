@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% import 'bootstrap/wtf.html' as wtf %}
+{% import '_wtf.html' as wtf %}
 
 {% block head %}
   {{ super() }}
@@ -21,11 +21,15 @@
       {% endfor %}
     {% endif %}
   {% endwith %}
-  <nav class="row justify-content-center justify-content-md-start">
-    <div class="home-nav col-11 offset-md-6 col-md-6 col-lg-5 col-xl-4">
-      <div><a href="#" data-text="">offerings</a></div>
-      <div><a href="#contact" data-text="contact">connect</a></div>
-      <div><a href="#" data-text="order">i am</a></div>
+  <nav class="row justify-content-center">
+    <div class="col-10">
+      <div class="row justify-content-center justify-content-md-end">
+        <div class="home-nav col-10 col-md-6 col-lg-5 col-xl-4">
+          <div><a href="#" data-text="offerings">offerings</a></div>
+          <div><a href="#connect" data-text="connect">connect</a></div>
+          <div><a href="#" data-text="i am">i am</a></div>
+        </div>
+      </div>
     </div>
   </nav>
 {% endblock navbar %}
@@ -34,7 +38,7 @@
   <div class="content">
     <div id="home" class="home-section inverse text-center">
       <div class="row justify-content-center">
-        <div class="col-sm-11">
+        <div class="col-11">
           <img id="home-logo" class="img-fluid"
             src="{{ url_for('static', filename='img/logo.svg') }}" alt="">
 
@@ -61,10 +65,10 @@
 
     </div>
 
-    <div id="contact" class="home-section">
+    <div id="connect" class="home-section">
       <div class="row justify-content-center">
         <div class="col-11 col-md-8">
-          <h1 class="page-title">Send us a message</h1>
+          <h1 class="page-title">Connect with me</h1>
 
           <form id="inquiry-form" action="" method="post">
             {{ form.hidden_tag() }}

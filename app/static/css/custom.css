@@ -5888,10 +5888,7 @@ button:hover, .btn:hover, input[type=submit]:hover, .menu-link:hover {
   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../img/trees.jpg) center top no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  padding-top: calc(7rem + 3vw);
 }
 
 @media screen and (max-width: 1200px) {
@@ -5908,7 +5905,7 @@ button:hover, .btn:hover, input[type=submit]:hover, .menu-link:hover {
 #home-logo {
   position: relative;
   display: block;
-  margin: 0 auto 11rem;
+  margin: calc(7rem + 2vw) auto 11rem;
   height: calc(222px + 3vw);
 }
 
@@ -5933,6 +5930,7 @@ button:hover, .btn:hover, input[type=submit]:hover, .menu-link:hover {
 .home-nav {
   position: absolute;
   top: 0;
+  padding-top: calc(4rem + 2vw);
   display: flex;
   justify-content: space-between;
   background-color: transparent;
@@ -5947,7 +5945,6 @@ button:hover, .btn:hover, input[type=submit]:hover, .menu-link:hover {
   color: white;
   font-size: 2rem;
   text-decoration: none;
-  padding: 4rem 0;
   text-transform: uppercase;
 }
 
