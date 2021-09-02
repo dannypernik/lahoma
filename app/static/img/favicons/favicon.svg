@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="215" height="215" viewBox="0 0 215 215">
+  <defs>
+    <circle id="favicon2-a" cx="99.366" cy="99.366" r="99.366"/>
+    <circle id="favicon2-c" cx="99.366" cy="99.366" r="99.366"/>
+    <circle id="favicon2-e" cx="99.366" cy="99.366" r="99.366"/>
+    <circle id="favicon2-g" cx="99.366" cy="99.366" r="99.366"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd" transform="rotate(90 101.5 107.5)">
+    <g transform="rotate(90 99.366 101.805)">
+      <mask id="favicon2-b" fill="#fff">
+        <use xlink:href="#favicon2-a"/>
+      </mask>
+      <rect width="106.682" height="106.682" x="99.366" y="-7.315" fill="#363636" fill-rule="nonzero" mask="url(#favicon2-b)"/>
+    </g>
+    <g transform="rotate(-180 100.586 100.586)">
+      <mask id="favicon2-d" fill="#fff">
+        <use xlink:href="#favicon2-c"/>
+      </mask>
+      <rect width="105.682" height="105.682" x="99.866" y="-6.815" fill="#FFF" fill-rule="nonzero" stroke="#979797" mask="url(#favicon2-d)"/>
+    </g>
+    <g transform="translate(2.438 1.829)">
+      <mask id="favicon2-f" fill="#fff">
+        <use xlink:href="#favicon2-e"/>
+      </mask>
+      <rect width="106.682" height="106.682" x="99.366" y="-7.315" fill="#D34646" fill-rule="nonzero" mask="url(#favicon2-f)"/>
+    </g>
+    <g transform="rotate(-90 101.5 99.062)">
+      <mask id="favicon2-h" fill="#fff">
+        <use xlink:href="#favicon2-g"/>
+      </mask>
+      <rect width="106.682" height="106.682" x="99.366" y="-7.315" fill="#FFE680" fill-rule="nonzero" mask="url(#favicon2-h)"/>
+    </g>
+    <path fill="#68D1BA" fill-rule="nonzero" stroke="#D7D7D7" stroke-width="11" d="M109.279612,73.9804442 L130.27809,93.4298541 C134.735109,97.5580761 135.001651,104.517789 130.873429,108.974807 C130.682652,109.180778 130.484061,109.37937 130.27809,109.570146 L109.279612,129.019556 C105.062005,132.926028 98.5476045,132.926028 94.3299975,129.019556 L73.3315196,109.570146 C68.874501,105.441924 68.6079588,98.4822112 72.7361809,94.0251927 C72.9269571,93.8192219 73.1255488,93.6206303 73.3315196,93.4298541 L94.3299975,73.9804442 C98.5476045,70.0739721 105.062005,70.0739721 109.279612,73.9804442 Z"/>
+    <path stroke="#D7D7D7" stroke-linecap="square" stroke-width="11" d="M102.10961 70.7147147L102.10961 1.82882883M135.333333 101.195195L201.171171 101.195195M102.10961 132.285285L102.10961 200.561562M68.8858859 101.195195L2.43843844 101.195195"/>
+    <circle cx="101.5" cy="101.5" r="101.5" stroke="#D7D7D7" stroke-width="11"/>
+  </g>
+</svg>
