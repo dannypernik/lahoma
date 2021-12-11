@@ -20,8 +20,8 @@ def dir_last_updated(folder):
                    for f in files))
 
 @app.route('/', methods=['GET', 'POST'])
-@app.route('/index', methods=['GET', 'POST'])
-def index():
+@app.route('/home', methods=['GET', 'POST'])
+def home():
     form = InquiryForm()
     if form.validate_on_submit():
         user = User(first_name=form.first_name.data, email=form.email.data, phone=form.phone.data)
@@ -31,16 +31,16 @@ def index():
         send_inquiry_email(user, message)
         print(app.config['ADMINS'])
         flash("Thank you for your message. We will be in touch!")
-        return redirect(url_for('index'))
-    return render_template('index.html', form=form, last_updated=dir_last_updated('app/static'))
+        return redirect(url_for('home'))
+    return render_template('home.html', form=form, last_updated=dir_last_updated('app/static'))
 
-@app.route('/about')
-def about():
-    return render_template('about.html')
+@app.route('/iam')
+def iam():
+    return render_template('iam.html')
 
-@app.route('/reviews')
-def reviews():
-    return render_template('reviews.html')
+@app.route('/offerings')
+def offerings():
+    return render_template('offerings.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():

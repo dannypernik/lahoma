@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="page-start justify-content-center">
+    <div class="row justify-content-center">
+      <div class="col-6 col-sm-4">
+        <!--<img class="profile-pic" src="{{ url_for('static', filename='img/.jpg') }}" alt="">-->
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-10 col-md-8">
+        <h1>I Am</h1>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-11 col-md-10 col-lg-9">
+
+      </div>
+    </div>
+    <div class="row text-center">
+      <div class="col">
+        <a href="{{ url_for('home', _anchor='contact') }}">
+          <button class="lead btn">
+            Connect with me
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

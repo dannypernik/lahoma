@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="page-start">
+    <div class="row justify-content-center">
+      <div class="col-10 col-md-8">
+        <h1>Offerings</h1>
+        <h2>Shamanic Healing Session</h2>
+        <p>
+          These powerful sessions are a mixture of energy work, channeled guidance,
+          regression work (when needed), and the use of shamanic songs and tools
+          to help clear and move energy. The mixture of somatic experience with
+          energy work helps to fully move the patterns of hucha (negative patterns
+          of stored energy) from the auric field. I will tap into your energy to
+          see what is out of alignment and listen deeply to the guidance of spirit
+          on what needs to be done. I guide you through channeled meditations and
+          breathwork to help bring you to homeostasis. My  goal is to serve spirit
+          by helping you heal your body and soul. You are a divine being, and it
+          would be my honor to assist in your process to fully embody your essence.
+        </p>
+
+        <h2>Tantric Healing</h2>
+        <p>
+          In these sessions, we will express divine loving energy through somatic
+          experience. Together we will let go of the world around us and sink into
+          a present practice of pure connection, sacred breathwork, and ecstatic
+          tantric massage. We will go on a transcendental healing journey into true
+          connection with the divine. We will release any shame or blockages carried
+          in your field so that you may radiate your divine essence.
+        </p>
+        <p>
+          I work with individuals of all orientations as well as couples. Sessions
+          are catered to meet your personal needs and boundaries.
+        </p>
+        <!--<ul>
+          <li>$350 for 60 minutes</li>
+          <li>$450 for 90 minutes</li>
+          <li>$500 for 120 minutes</li>
+        </ul>-->
+      </div>
+    </div>
+    <div class="row text-center mt-2">
+      <div class="col">
+        <a href="{{ url_for('home', _anchor='connect') }}">
+          <button class="lead btn">
+            Connect with me
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

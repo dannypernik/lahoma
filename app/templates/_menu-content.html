@@ -8,15 +8,27 @@
       <button class="drawer__close" data-drawer-close aria-label="Close Drawer"></button>
     </div>
     <div class="drawer__content">
-      <a href="#home">
+      <a href="{{ url_for('home') }}">
         <div class="menu-link">
           <p>Home</p>
         </div>
       </a>
 
-      <a href="{{ url_for('index', _anchor='contact') }}">
+      <a href="{{ url_for('offerings') }}">
         <div class="menu-link">
-          <p>Contact</p>
+          <p>Offerings</p>
+        </div>
+      </a>
+
+      <a href="{{ url_for('home', _anchor='connect') }}">
+        <div class="menu-link">
+          <p>Connect</p>
+        </div>
+      </a>
+
+      <a href="{{ url_for('iam') }}">
+        <div class="menu-link">
+          <p>I Am</p>
         </div>
       </a>
     </div>
