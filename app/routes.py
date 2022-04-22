@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, flash, Markup, redirect, url_for, request, send_from_directory
 from app import app, db
-from app.forms import InquiryForm, EmailForm, SignupForm, LoginForm, EditProfileForm
+from app.forms import InquiryForm, SignupForm, LoginForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Student, Tutor
 from werkzeug.urls import url_parse
