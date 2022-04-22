@@ -1,35 +1,18 @@
 {% extends "base.html" %}
-{% import 'bootstrap/wtf.html' as wtf %}
 
-{% block content %}
-  <h2>Sign up</h2>
-  <div class="row">
-    <div class="col-md-8">
+{% block container %}
+  <div class="row justify-content-center">
+    <div class="col-11 col-sm-9 col-lg-6">
+      <h1>Register</h1>
       <form class="" action="" method="post">
         {{ form.hidden_tag() }}
-
-        <div class="row">
-          <div class="col-md-6">
-            {{ wtf.form_field(form.first_name, form_type="inline") }}
-          </div>
-          <div class="col-md-6">
-            {{ wtf.form_field(form.last_name, form_type="inline") }}
-          </div>
-          <div class="col-md-12">
-            {{ wtf.form_field(form.email, form_type="inline") }}
-          </div>
-          <div class="col-md-6">
-            {{ wtf.form_field(form.password, form_type="inline") }}
-          </div>
-          <div class="col-md-6">
-            {{ wtf.form_field(form.password2, form_type="inline") }}
-          </div>
-        </div>
-
-        <div class="">
-          {{ form.submit() }}
-        </div>
+        {{ form.first_name }}
+        {{ form.last_name }}
+        {{ form.email }}
+        {{ form.password }}
+        {{ form.password2 }}
+        {{ form.submit }}
       </form>
     </div>
   </div>
-{% endblock content %}
+{% endblock container %}
