@@ -5884,7 +5884,7 @@ button:hover, .btn:hover, input[type=submit]:hover, .menu-link:hover {
 }
 
 #home {
-  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(../img/rose1.jpg) center top no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../img/rose1.jpg) center top no-repeat;
   background-attachment: fixed;
   background-size: cover;
   padding-top: calc(7rem + 3vw);
