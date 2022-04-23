@@ -42,38 +42,52 @@
   </head>
 
   <body>
-    {% block navbar %}
-      <div class="site-nav">
-        <div class="row justify-content-center">
-          <div class="col-10">
-            <div class="row">
-              <div class="col-9">
-                <a href="{{ url_for('home') }}">
-                  <img id="nav-img" src="{{ url_for('static', filename='img/logo-header2.svg') }}" alt="Lahoma Healing Arts">
-                </a>
-              </div>
-              <div class="col-3">
-                <a id="menu-btn" href="#" data-drawer-trigger aria-controls="site-menu" aria-expanded="false">
-                  <div id="menu-title" class="d-none d-sm-block">Menu</div>
-                  <img id="menu-icon" src="{{ url_for('static', filename='img/menu.svg') }}" alt="">
-                </a>
+    <div class="content">
+      {% block navbar %}
+        <div class="site-nav">
+          <div class="row justify-content-center">
+            <div class="col-10">
+              <div class="row">
+                <div class="col-9">
+                  <a href="{{ url_for('home') }}">
+                    <img id="nav-img" src="{{ url_for('static', filename='img/logo-header.svg') }}" alt="Lahoma Healing Arts">
+                  </a>
+                </div>
+                <div class="col-3">
+                  <a id="menu-btn" href="#" data-drawer-trigger aria-controls="site-menu" aria-expanded="false">
+                    <div id="menu-title" class="d-none d-sm-block">Menu</div>
+                    <img id="menu-icon" src="{{ url_for('static', filename='img/menu.svg') }}" alt="">
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      {% with messages = get_flashed_messages() %}
-        {% if messages %}
-          {% for message in messages %}
-            <div class="alert alert-info" role="alert">{{ message }}</div>
-          {% endfor %}
-        {% endif %}
-      {% endwith %}
+        <div class="nav-gap"></div>
 
-      {% include '_menu-content.html' %}
-    {% endblock navbar %}
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-info" role="alert">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
 
-    {% block content %}{% endblock content %}
+        <div class="section-margin"></div>
+        {% include '_menu-content.html' %}
+
+      {% endblock navbar %}
+
+      {% block container %}
+        <div class="row justify-content-center">
+          <div class="col-11 col-sm-10 col-lg-8">
+
+            {% block content %}{% endblock content %}
+
+          </div>
+        </div>
+      {% endblock container %}
+    </div>
 
     {% block footer %}
       <footer class="footer">
@@ -95,5 +109,7 @@
         </div>
       </footer>
     {% endblock footer %}
+
+    {% block end_scripts %}{% endblock end_scripts %}
   </body>
 </html>

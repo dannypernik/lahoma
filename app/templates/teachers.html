@@ -2,12 +2,12 @@
 
 {% block content %}
   <div class="">
-    <button id="add-tutor" class="btn d-inline-block my-0 me-2">+ Add tutor</button>
+    <button id="add-tutor" class="btn d-inline-block my-0 me-2">+ Add teacher</button>
     <a href="{{ url_for('students') }}" class="btn sec py-2">Students</a>
   </div>
 
   <form id="add-tutor-form" action="" method="post">
-    <h1 class="mb-3 me-3 d-inline-block">Add tutor</h1>
+    <h1 class="mb-3 me-3 d-inline-block">Add teacher</h1>
     <a id="hide-form" href="#">Hide</a>
 
     {{ form.hidden_tag() }}
@@ -19,7 +19,7 @@
     {{ form.submit(class="mb-3") }}
   </form>
   {% for status in statuses %}
-      <h1 class="mt-3">{{ status[0].title() }} tutors</h1>
+      <h1 class="mt-3">{{ status[0].title() }} teachers</h1>
 
       {% for t in tutors %}
         {% if t.status == status[0] %}

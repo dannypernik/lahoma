@@ -5979,6 +5979,9 @@ body {
   font-family: "Montserrat", "Helvetica", sans-serif;
   color: #1C4D65;
   font-size: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  -ms-overflow-style: none;
 }
 
 p {

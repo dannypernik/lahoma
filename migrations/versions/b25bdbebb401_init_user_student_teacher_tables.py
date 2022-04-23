@@ -65,7 +65,7 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     with op.batch_alter_table('student', schema=None) as batch_op:
-        batch_op.create_index(batch_op.f('ix_student_email'), ['email'], unique=False)
+        batch_op.create_index(batch_op.f('ix_email'), ['email'], unique=False)
         batch_op.create_index(batch_op.f('ix_student_first_name'), ['first_name'], unique=False)
         batch_op.create_index(batch_op.f('ix_student_status'), ['status'], unique=False)
 
@@ -77,7 +77,7 @@ def downgrade():
     with op.batch_alter_table('student', schema=None) as batch_op:
         batch_op.drop_index(batch_op.f('ix_student_status'))
         batch_op.drop_index(batch_op.f('ix_student_first_name'))
-        batch_op.drop_index(batch_op.f('ix_student_email'))
+        batch_op.drop_index(batch_op.f('ix_email'))
 
     op.drop_table('student')
     with op.batch_alter_table('user', schema=None) as batch_op:

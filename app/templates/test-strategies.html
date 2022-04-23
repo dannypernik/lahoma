@@ -44,7 +44,7 @@
 
     <div id="student-info" class="row justify-content-center">
       <div id="student-name" class="col-12 col-sm-6">
-        {{ form.student_name }}
+        {{ form.first_name }}
       </div>
     </div>
 
@@ -69,7 +69,7 @@
 
     document.getElementById("student-wrapper").addEventListener("click", function () {
       document.getElementById("student-info").style.height = "0px";
-      document.getElementById("student_name").removeAttribute('required','');
+      document.getElementById("first_name").removeAttribute('required','');
       slideDown(document.getElementById("parent-info"));
       document.getElementById("parent_name").setAttribute('required','');
       document.getElementById("parent_email").setAttribute('required','');
@@ -80,7 +80,7 @@
       document.getElementById("parent_name").removeAttribute('required','');
       document.getElementById("parent_email").removeAttribute('required','');
       slideDown(document.getElementById("student-info"));
-      document.getElementById("student_name").setAttribute('required','');
+      document.getElementById("first_name").setAttribute('required','');
     });
   </script>
 {% endblock end_scripts %}

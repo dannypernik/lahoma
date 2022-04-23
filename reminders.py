@@ -82,9 +82,9 @@ def main():
 
     def full_name(student):
         if student.last_name == "":
-            name = student.student_name
+            name = student.first_name
         else:
-            name = student.student_name + " " + student.last_name
+            name = student.first_name + " " + student.last_name
         return name
 
     print("Session reminders for " + upcoming_start_formatted + ":")
@@ -93,7 +93,7 @@ def main():
     for event in events:
         for student in active_students:
             name = full_name(student)
-            tutor = Tutor.query.get_or_404(student.tutor_id)
+            tutor = Teacher.query.get_or_404(student.teacher_id)
             if " " + name + " and" in event.get('summary'):
                 reminder_list.append(name)
                 send_reminder_email(event, student, tutor, quote)
@@ -143,14 +143,14 @@ def main():
             name = full_name(student)
             name_check = " " + name + " and"
             if any(name_check in nest[0] for nest in week_events_list):
-                print(name + " scheduled with " + student.tutor.first_name)
+                print(name + " scheduled with " + student.teacher.first_name)
                 for x in week_events_list:
                     count = 0
                     hours = 0
                     if name_check in x[0]:
                         count += 1
                         hours += x[1]
-                        if student.tutor_id == 1:
+                        if student.teacher_id == 1:
                             scheduled_students.add(name)
                             session_count += count
                             tutoring_hours += hours
@@ -158,12 +158,12 @@ def main():
                             outsourced_scheduled_students.add(name)
                             outsourced_session_count += count
                             outsourced_hours += hours
-            elif student.tutor_id == 1:
+            elif student.teacher_id == 1:
                 unscheduled_list.append(name)
                 print(name + " unscheduled with Danny")
             else:
                 outsourced_unscheduled_list.append(name)
-                print(name + " unscheduled with " + student.tutor.first_name)
+                print(name + " unscheduled with " + student.teacher.first_name)
 
         for student in paused_students:
             name = full_name(student)

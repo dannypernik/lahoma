@@ -28,11 +28,11 @@
         {% if s.status == status[0] %}
           <div class="row justify-content-centered">
             <div class="col-9 col-md-10">
-              <h2 class="my-1">{{ s.student_name }} {{ s.last_name }}</h2>
+              <h2 class="my-1">{{ s.first_name }} {{ s.last_name }}</h2>
 
               {% if status[0] == 'active' %}
                   <ul class="mb-3">
-                    <li>{{ s.student_email }}</li>
+                    <li>{{ s.email }}</li>
                     <li>Parent: {{ s.parent_name }} ({{ s.parent_email }})</li>
                     {% if s.secondary_email %}
                       <li>Email 2: {{ s.secondary_email }}</li>

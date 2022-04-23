@@ -44,11 +44,11 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Log in')
 
 
-def get_tutors():
-    return Tutor.query
+def get_teachers():
+    return Teacher.query
 
-def tutor_name(Tutor):
-    return Tutor.first_name + " " + Tutor.last_name
+def teacher_name(Teacher):
+    return Teacher.first_name + " " + Teacher.last_name
 
 class StudentForm(FlaskForm):
     first_name = StringField('First name', render_kw={"placeholder": "First name"}, \
@@ -61,7 +61,7 @@ class StudentForm(FlaskForm):
     location = StringField('Location', render_kw={"placeholder": "Location"}, \
         validators=[InputRequired()])
     status = SelectField('Status', choices=[('active', 'Active'),('paused','Paused'),('inactive','Inactive')])
-    teacher_id = QuerySelectField('Tutor', default=1, query_factory=get_tutors, get_label=tutor_name, \
+    teacher_id = QuerySelectField('Tutor', default=1, query_factory=get_teachers, get_label=teacher_name, \
         validators=[InputRequired()])
     submit = SubmitField('Save')
 

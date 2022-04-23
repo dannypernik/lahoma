@@ -1,12 +1,12 @@
 import os
 from flask import Flask, render_template, flash, Markup, redirect, url_for, request, send_from_directory
 from app import app, db
-from app.forms import InquiryForm, SignupForm, LoginForm
+from app.forms import InquiryForm, SignupForm, LoginForm, StudentForm, TeacherForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Student, Teacher
 from werkzeug.urls import url_parse
 from datetime import datetime
-from app.email import send_contact_email, send_test_strategies_email, send_score_analysis_email, send_practice_test_email
+from app.email import send_contact_email
 
 @app.before_request
 def before_request():
@@ -28,7 +28,7 @@ def home():
             pass
         else:
             flash('Please verify that you are human.', 'error')
-            return render_template('index.html', form=form, last_updated=dir_last_updated('app/static'))
+            return render_template('home.html', form=form, last_updated=dir_last_updated('app/static'))
         user = User(first_name=form.first_name.data, email=form.email.data, phone=form.phone.data)
         message = form.message.data
         subject = form.subject.data
@@ -48,37 +48,12 @@ def iam():
 def offerings():
     return render_template('offerings.html')
 
-@app.route('/griffin', methods=['GET', 'POST'])
-def griffin():
-    form = ScoreAnalysisForm()
-    school='Griffin School'
-    test='ACT'
-    if form.validate_on_submit():
-        student = Student(student_name=form.student_first_name.data, \
-        last_name=form.student_last_name.data, parent_name=form.parent_first_name.data, \
-        parent_email=form.parent_email.data)
-        send_score_analysis_email(student, school)
-        return render_template('score-analysis-requested.html', email=form.parent_email.data)
-    return render_template('griffin.html', form=form, school=school, test=test)
-
-@app.route('/skybridge', methods=['GET', 'POST'])
-def skybridge():
-    form = ScoreAnalysisForm()
-    school='Skybridge Academy'
-    test='SAT'
-    if form.validate_on_submit():
-        student = Student(student_name=form.student_first_name.data, \
-        last_name=form.student_last_name.data, parent_name=form.parent_first_name.data, \
-        parent_email=form.parent_email.data)
-        send_score_analysis_email(student, school)
-        return render_template('score-analysis-requested.html', email=form.parent_email.data)
-    return render_template('skybridge.html', form=form, school=school, test=test)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         flash('You are already signed in')
-        return redirect(url_for('index'))
+        return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -96,22 +71,20 @@ def login():
 @login_required
 def students():
     form = StudentForm()
-    students = Student.query.order_by(Student.student_name).all()
+    students = Student.query.order_by(Student.first_name).all()
     statuses = Student.query.with_entities(Student.status).distinct()
     if form.validate_on_submit():
-        student = Student(student_name=form.student_name.data, last_name=form.last_name.data, \
-        student_email=form.student_email.data, parent_name=form.parent_name.data, \
-        parent_email=form.parent_email.data, secondary_email=form.secondary_email.data, \
-        timezone=form.timezone.data, location=form.location.data, status=form.status.data, \
-        tutor=form.tutor_id.data)
+        student = Student(first_name=form.first_name.data, last_name=form.last_name.data, \
+        email=form.email.data, timezone=form.timezone.data, \
+        location=form.location.data, status=form.status.data, teacher=form.teacher_id.data)
         try:
             db.session.add(student)
             db.session.commit()
         except:
             db.session.rollback()
-            flash(student.student_name + ' could not be added', 'error')
+            flash(student.first_name + ' could not be added', 'error')
             return redirect(url_for('students'))
-        flash(student.student_name + ' added')
+        flash(student.first_name + ' added')
         return redirect(url_for('students'))
     return render_template('students.html', title="Students", form=form, students=students, statuses=statuses)
 
@@ -122,111 +95,105 @@ def edit_student(id):
     student = Student.query.get_or_404(id)
     if form.validate_on_submit():
         if 'save' in request.form:
-            student.student_name=form.student_name.data
+            student.first_name=form.first_name.data
             student.last_name=form.last_name.data
-            student.student_email=form.student_email.data
-            student.parent_name=form.parent_name.data
-            student.parent_email=form.parent_email.data
-            student.secondary_email=form.secondary_email.data
+            student.email=form.email.data
             student.timezone=form.timezone.data
             student.location=form.location.data
             student.status=form.status.data
-            student.tutor=form.tutor_id.data
+            student.teacher=form.teacher_id.data
             try:
                 db.session.add(student)
                 db.session.commit()
-                flash(student.student_name + ' updated')
+                flash(student.first_name + ' updated')
             except:
                 db.session.rollback()
-                flash(student.student_name + ' could not be updated', 'error')
+                flash(student.first_name + ' could not be updated', 'error')
                 return redirect(url_for('students'))
             finally:
                 db.session.close()
         elif 'delete' in request.form:
             db.session.delete(student)
             db.session.commit()
-            flash('Deleted ' + student.student_name)
+            flash('Deleted ' + student.first_name)
         else:
             flash('Code error in POST request', 'error')
         return redirect(url_for('students'))
     elif request.method == "GET":
-        form.student_name.data=student.student_name
+        form.first_name.data=student.first_name
         form.last_name.data=student.last_name
-        form.student_email.data=student.student_email
-        form.parent_name.data=student.parent_name
-        form.parent_email.data=student.parent_email
-        form.secondary_email.data=student.secondary_email
+        form.email.data=student.email
         form.timezone.data=student.timezone
         form.location.data=student.location
         form.status.data=student.status
-        form.tutor_id.data=student.tutor
+        form.teacher_id.data=student.teacher
     return render_template('edit-student.html', title='Edit Student',
                            form=form, student=student)
 
 
-@app.route('/tutors', methods=['GET', 'POST'])
+@app.route('/teachers', methods=['GET', 'POST'])
 @login_required
-def tutors():
+def teachers():
     form = TutorForm()
-    tutors = Tutor.query.order_by(Tutor.first_name).all()
-    statuses = Tutor.query.with_entities(Tutor.status).distinct()
+    teachers = Teacher.query.order_by(Teacher.first_name).all()
+    statuses = Teacher.query.with_entities(Teacher.status).distinct()
     if form.validate_on_submit():
-        tutor = Tutor(first_name=form.first_name.data, last_name=form.last_name.data, \
+        teacher = Teacher(first_name=form.first_name.data, last_name=form.last_name.data, \
         email=form.email.data, timezone=form.timezone.data)
         try:
-            db.session.add(tutor)
+            db.session.add(teacher)
             db.session.commit()
         except:
             db.session.rollback()
-            flash(tutor.first_name + ' could not be added', 'error')
-            return redirect(url_for('tutors'))
-        flash(tutor.first_name + ' added')
-        return redirect(url_for('tutors'))
-    return render_template('tutors.html', title="Tutors", form=form, tutors=tutors, statuses=statuses)
+            flash(teacher.first_name + ' could not be added', 'error')
+            return redirect(url_for('teachers'))
+        flash(teacher.first_name + ' added')
+        return redirect(url_for('teachers'))
+    return render_template('teachers.html', title="Teachers", form=form, teachers=teachers, statuses=statuses)
 
-@app.route('/edit_tutor/<int:id>', methods=['GET', 'POST'])
+@app.route('/edit_teacher/<int:id>', methods=['GET', 'POST'])
 @login_required
-def edit_tutor(id):
+def edit_teacher(id):
     form = TutorForm()
-    tutor = Tutor.query.get_or_404(id)
+    teacher = Teacher.query.get_or_404(id)
     if form.validate_on_submit():
         if 'save' in request.form:
-            tutor.first_name=form.first_name.data
-            tutor.last_name=form.last_name.data
-            tutor.email=form.email.data
-            tutor.timezone=form.timezone.data
-            tutor.status=form.status.data
+            teacher.first_name=form.first_name.data
+            teacher.last_name=form.last_name.data
+            teacher.email=form.email.data
+            teacher.timezone=form.timezone.data
+            teacher.status=form.status.data
             try:
-                db.session.add(tutor)
+                db.session.add(teacher)
                 db.session.commit()
-                flash(tutor.first_name + ' updated')
+                flash(teacher.first_name + ' updated')
             except:
                 db.session.rollback()
-                flash(tutor.first_name + ' could not be updated', 'error')
-                return redirect(url_for('tutors'))
+                flash(teacher.first_name + ' could not be updated', 'error')
+                return redirect(url_for('teachers'))
             finally:
                 db.session.close()
         elif 'delete' in request.form:
-            db.session.delete(tutor)
+            db.session.delete(teacher)
             db.session.commit()
-            flash('Deleted ' + tutor.first_name)
+            flash('Deleted ' + teacher.first_name)
         else:
             flash('Code error in POST request', 'error')
-        return redirect(url_for('tutors'))
+        return redirect(url_for('teachers'))
     elif request.method == "GET":
-        form.first_name.data=tutor.first_name
-        form.last_name.data=tutor.last_name
-        form.email.data=tutor.email
-        form.timezone.data=tutor.timezone
-        form.status.data=tutor.status
-    return render_template('edit-tutor.html', title='Edit Tutor', form=form, tutor=tutor)
+        form.first_name.data=teacher.first_name
+        form.last_name.data=teacher.last_name
+        form.email.data=teacher.email
+        form.timezone.data=teacher.timezone
+        form.status.data=teacher.status
+    return render_template('edit-teacher.html', title='Edit Tutor', form=form, teacher=teacher)
 
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if current_user.is_authenticated:
         flash('You are already signed in')
-        return redirect(url_for('index'))
+        return redirect(url_for('home'))
     form = SignupForm()
     if form.validate_on_submit():
         username_check = User.query.filter_by(username=form.email.data).first()
@@ -239,13 +206,13 @@ def signup():
         db.session.add(user)
         db.session.commit()
         flash("You are now registered. We're glad you're here!")
-        return redirect(url_for('index'))
+        return redirect(url_for('home'))
     return render_template('signup.html', title='Sign up', form=form)
 
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('home'))
 
 @app.route('/profile/<username>')
 @login_required
