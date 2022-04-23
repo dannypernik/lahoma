@@ -3,7 +3,7 @@ from flask import Flask, render_template, flash, Markup, redirect, url_for, requ
 from app import app, db
 from app.forms import InquiryForm, SignupForm, LoginForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Student, Tutor
+from app.models import User, Student, Teacher
 from werkzeug.urls import url_parse
 from datetime import datetime
 from app.email import send_contact_email, send_test_strategies_email, send_score_analysis_email, send_practice_test_email
