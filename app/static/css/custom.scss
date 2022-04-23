@@ -468,6 +468,8 @@ div.alert {
   background-attachment: fixed;
   background-size: cover;
   padding-top: calc(7rem + 3vw);
+  min-height: 100vh;
+  overflow: auto;
 }
 
 // Med-Large backgrounds //
