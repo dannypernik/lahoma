@@ -5984,6 +5984,10 @@ body {
   -ms-overflow-style: none;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
+
 p {
   margin-bottom: 2rem;
 }
