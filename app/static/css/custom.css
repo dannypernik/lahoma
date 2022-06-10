@@ -5977,7 +5977,7 @@ html {
 body {
   height: 100%;
   font-family: "Montserrat", "Helvetica", sans-serif;
-  color: #1C4D65;
+  color: #eee;
   font-size: 1.8rem;
   display: flex;
   flex-direction: column;
@@ -6058,18 +6058,18 @@ input, textarea {
   border-bottom: 1px solid #999;
   width: 100%;
   outline: none;
-  color: #1C4D65;
+  color: #acacac;
 }
 
 input:focus, textarea:focus {
-  border-bottom: 1px solid #1C4D65;
+  border-bottom: 1px solid #acacac;
 }
 
 input[type=submit] {
   margin-top: 1.5rem;
-  background-color: #1C4D65;
+  background-color: #acacac;
   color: white;
-  border: 2px solid #1C4D65;
+  border: 2px solid #acacac;
   font-size: 1.9rem;
   transition: 0.3s;
 }
@@ -6093,11 +6093,11 @@ input[type=checkbox] + label::before {
   margin-right: 10px;
   width: 20px;
   height: 20px;
-  border: 2px solid #1C4D65;
+  border: 2px solid #acacac;
   border-radius: 3px;
 }
 input[type=checkbox]:checked + label::before {
-  background-color: #1C4D65;
+  background-color: #acacac;
 }
 input[type=checkbox]:checked + label::after {
   content: "";
@@ -6111,7 +6111,7 @@ input[type=checkbox]:checked + label::after {
   transform: rotate(-45deg);
 }
 input[type=checkbox]:focus + label::before {
-  box-shadow: 0 0px 8px #1C4D65;
+  box-shadow: 0 0px 8px #acacac;
 }
 
 input[type=radio] {
@@ -6134,7 +6134,7 @@ input[type=radio] + label::before {
   width: 2rem;
   height: 2rem;
   background: transparent;
-  border: 2px solid #1C4D65;
+  border: 2px solid #acacac;
   border-radius: 50%;
 }
 input[type=radio] + label::after {
@@ -6148,10 +6148,10 @@ input[type=radio] + label::after {
   height: 1rem;
 }
 input[type=radio]:checked + label::after {
-  background: #1C4D65;
+  background: #acacac;
 }
 input[type=radio]:focus + label::before {
-  box-shadow: 0 0px 8px #1C4D65;
+  box-shadow: 0 0px 8px #acacac;
 }
 
 .radio-wrapper {
@@ -6167,8 +6167,8 @@ input[type=radio]:focus + label::before {
 }
 
 select {
-  color: #1C4D65;
-  border: 2px solid #1C4D65;
+  color: #acacac;
+  border: 2px solid #acacac;
   border-radius: 10px;
   padding: 0.5rem 1rem;
 }
@@ -6180,11 +6180,11 @@ select {
 a {
   display: inline-block;
   text-decoration: none;
-  color: #1C4D65;
+  color: #acacac;
 }
 
 a:hover {
-  color: #1C4D65;
+  color: #acacac;
 }
 
 a.white:hover {
@@ -6209,8 +6209,8 @@ button, .btn {
   display: block;
   margin: 2rem auto;
   padding: 1rem 2rem;
-  background-color: #1C4D65;
-  border: 2px solid #1C4D65;
+  background-color: #acacac;
+  border: 2px solid #acacac;
   color: white;
   transition: 0.3s;
   font-size: 1.7rem;
@@ -6230,8 +6230,8 @@ button.clr {
 }
 
 .btn.sec {
-  color: #1C4D65;
-  border-color: #1C4D65;
+  color: #acacac;
+  border-color: #acacac;
   background-color: transparent;
   margin: 0;
   padding: 0.5rem 2rem;
@@ -6260,8 +6260,8 @@ button.clr {
 }
 
 button:hover, .btn:hover, input[type=submit]:hover, .menu-link:hover {
-  background-color: #276b8d;
-  border-color: #276b8d;
+  background-color: #c6c6c6;
+  border-color: #c6c6c6;
   color: white;
 }
 
@@ -6316,7 +6316,7 @@ div.alert {
   width: 100%;
   bottom: 0;
   padding: 20px;
-  background-color: #1C4D65;
+  background-color: #acacac;
   color: white;
   margin-top: 11rem;
 }
@@ -6355,7 +6355,7 @@ div.alert {
 .menu-link {
   height: 60px;
   border-bottom: 1px solid #ddd;
-  color: #1C4D65;
+  color: #acacac;
   transition: 0.3s;
 }
 
@@ -6368,8 +6368,8 @@ div.alert {
   position: fixed;
   left: 0;
   width: 100%;
-  background-color: #1C4D65;
-  border: 1px solid #1C4D65;
+  background-color: #acacac;
+  border: 1px solid #acacac;
   z-index: 5;
 }
 
@@ -6387,8 +6387,8 @@ div.alert {
   position: sticky;
   top: 0;
   border: none;
-  border-bottom: 1px solid #1C4D65;
-  background-color: #1C4D65;
+  border-bottom: 1px solid #acacac;
+  background-color: #acacac;
   z-index: 100;
 }
 
@@ -6412,6 +6412,12 @@ div.alert {
     background-attachment: scroll;
   }
 }
+#offerings {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(../img/meditate.jpg) center -100px no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
 #home-logo {
   position: relative;
   display: block;
@@ -6507,7 +6513,7 @@ div.alert {
 .usp-icon {
   width: 7rem;
   height: 7rem;
-  fill: #ababee;
+  fill: #68D1BA;
   margin-bottom: 2rem;
 }
 

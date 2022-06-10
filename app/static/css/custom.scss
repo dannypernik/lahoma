@@ -3,8 +3,8 @@ $lead-font-size: calc(2rem + 0.1vw);
 $lead-font-weight: inherit;
 $spacer: 2rem;
 $enable-smooth-scroll: false;
-$primary-color: #1C4D65;
-$secondary-color: #ababee;
+$primary-color: #acacac;
+$secondary-color: #68D1BA;
 $hover-color: lighten($primary-color, 10%);
 $body-font: 'Montserrat', 'Helvetica', sans-serif;
 $title-font: 'Montserrat', 'Helvetica', sans-serif;
@@ -27,7 +27,7 @@ html {
 body {
   height: 100%;
   font-family: $body-font;
-  color: $primary-color;
+  color: #eee;
   font-size: 1.8rem;
   display: flex;
   flex-direction:  column;
@@ -497,6 +497,14 @@ div.alert {
     //background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../img/student2.jpg);
     //background-attachment: scroll;
   //}
+}
+
+
+// Photo by Jared Rice on Unsplash https://unsplash.com/@jareddrice
+#offerings {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(../img/meditate.jpg) center -100px no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 #home-logo {

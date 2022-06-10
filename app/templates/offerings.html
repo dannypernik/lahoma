@@ -1,9 +1,13 @@
 {% extends "base.html" %}
 
+{% block container %}
+  <div id="offerings">
+    {{ super() }}
+  </div>
+{% endblock container %}
+
 {% block content %}
   <div class="page-start">
-    <div class="row justify-content-center">
-      <div class="col-10 col-md-8">
         <h1>Offerings</h1>
         <h2>Shamanic Healing Session</h2>
         <p>
@@ -38,7 +42,7 @@
           <li>$500 for 120 minutes</li>
         </ul>-->
       </div>
-    </div>
+
     <div class="row text-center mt-2">
       <div class="col">
         <a href="{{ url_for('home', _anchor='connect') }}">
@@ -48,5 +52,4 @@
         </a>
       </div>
     </div>
-  </div>
 {% endblock content %}
