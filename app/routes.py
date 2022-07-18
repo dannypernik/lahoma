@@ -1,9 +1,9 @@
 import os
 from flask import Flask, render_template, flash, Markup, redirect, url_for, request, send_from_directory
 from app import app, db
-from app.forms import InquiryForm, SignupForm, LoginForm, StudentForm, TeacherForm
+from app.forms import InquiryForm, SignupForm, LoginForm, ClientForm, TeacherForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Student, Teacher
+from app.models import User, Client, Teacher
 from werkzeug.urls import url_parse
 from datetime import datetime
 from app.email import send_contact_email
@@ -63,72 +63,72 @@ def login():
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('students')
+            next_page = url_for('clients')
         return redirect(next_page)
     return render_template('login.html', title="Login", form=form)
 
-@app.route('/students', methods=['GET', 'POST'])
+@app.route('/clients', methods=['GET', 'POST'])
 @login_required
-def students():
-    form = StudentForm()
-    students = Student.query.order_by(Student.first_name).all()
-    statuses = Student.query.with_entities(Student.status).distinct()
+def clients():
+    form = ClientForm()
+    clients = Client.query.order_by(Client.first_name).all()
+    statuses = Client.query.with_entities(Client.status).distinct()
     if form.validate_on_submit():
-        student = Student(first_name=form.first_name.data, last_name=form.last_name.data, \
+        client = Client(first_name=form.first_name.data, last_name=form.last_name.data, \
         email=form.email.data, timezone=form.timezone.data, \
         location=form.location.data, status=form.status.data, teacher=form.teacher_id.data)
         try:
-            db.session.add(student)
+            db.session.add(client)
             db.session.commit()
         except:
             db.session.rollback()
-            flash(student.first_name + ' could not be added', 'error')
-            return redirect(url_for('students'))
-        flash(student.first_name + ' added')
-        return redirect(url_for('students'))
-    return render_template('students.html', title="Students", form=form, students=students, statuses=statuses)
+            flash(client.first_name + ' could not be added', 'error')
+            return redirect(url_for('clients'))
+        flash(client.first_name + ' added')
+        return redirect(url_for('clients'))
+    return render_template('clients.html', title="Clients", form=form, clients=clients, statuses=statuses)
 
-@app.route('/edit_student/<int:id>', methods=['GET', 'POST'])
+@app.route('/edit_client/<int:id>', methods=['GET', 'POST'])
 @login_required
-def edit_student(id):
-    form = StudentForm()
-    student = Student.query.get_or_404(id)
+def edit_client(id):
+    form = ClientForm()
+    client = Client.query.get_or_404(id)
     if form.validate_on_submit():
         if 'save' in request.form:
-            student.first_name=form.first_name.data
-            student.last_name=form.last_name.data
-            student.email=form.email.data
-            student.timezone=form.timezone.data
-            student.location=form.location.data
-            student.status=form.status.data
-            student.teacher=form.teacher_id.data
+            client.first_name=form.first_name.data
+            client.last_name=form.last_name.data
+            client.email=form.email.data
+            client.timezone=form.timezone.data
+            client.location=form.location.data
+            client.status=form.status.data
+            client.teacher=form.teacher_id.data
             try:
-                db.session.add(student)
+                db.session.add(client)
                 db.session.commit()
-                flash(student.first_name + ' updated')
+                flash(client.first_name + ' updated')
             except:
                 db.session.rollback()
-                flash(student.first_name + ' could not be updated', 'error')
-                return redirect(url_for('students'))
+                flash(client.first_name + ' could not be updated', 'error')
+                return redirect(url_for('clients'))
             finally:
                 db.session.close()
         elif 'delete' in request.form:
-            db.session.delete(student)
+            db.session.delete(client)
             db.session.commit()
-            flash('Deleted ' + student.first_name)
+            flash('Deleted ' + client.first_name)
         else:
             flash('Code error in POST request', 'error')
-        return redirect(url_for('students'))
+        return redirect(url_for('clients'))
     elif request.method == "GET":
-        form.first_name.data=student.first_name
-        form.last_name.data=student.last_name
-        form.email.data=student.email
-        form.timezone.data=student.timezone
-        form.location.data=student.location
-        form.status.data=student.status
-        form.teacher_id.data=student.teacher
-    return render_template('edit-student.html', title='Edit Student',
-                           form=form, student=student)
+        form.first_name.data=client.first_name
+        form.last_name.data=client.last_name
+        form.email.data=client.email
+        form.timezone.data=client.timezone
+        form.location.data=client.location
+        form.status.data=client.status
+        form.teacher_id.data=client.teacher
+    return render_template('edit-client.html', title='Edit Client',
+                           form=form, client=client)
 
 
 @app.route('/teachers', methods=['GET', 'POST'])

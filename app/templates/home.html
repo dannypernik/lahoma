@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% import '_wtf.html' as wtf %}
 
 {% block head %}
   {{ super() }}
@@ -24,10 +23,11 @@
   <nav class="row justify-content-center">
     <div class="col-11 col-md-10">
       <div class="row justify-content-center justify-content-md-end">
-        <div class="home-nav col-10 col-md-6 col-lg-5 col-xl-4">
+        <div class="home-nav col-10 col-md-7 col-lg-6 col-xl-5">
           <div><a href="{{ url_for('offerings') }}" data-text="offerings">offerings</a></div>
-          <div><a href="#connect" data-text="connect">connect</a></div>
           <div><a href="{{ url_for('iam') }}" data-text="i am">i am</a></div>
+          <div><a href="#connect" data-text="connect">connect</a></div>
+          <div><a href="{{ url_for('login') }}" data-text="members">members</a></div>
         </div>
       </div>
     </div>

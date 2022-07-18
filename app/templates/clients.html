@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div>
+    <button id="add-client" class="my-0 me-2 btn d-inline-block">+ Add client</button>
+  </div>
+
+
+  <form id="add-client-form" action="" method="post">
+    <h1 class="mb-3 d-inline-block">Add client</h1>
+    <a id="hide-form" href="#">Hide</a>
+
+    {{ form.hidden_tag() }}
+    {{ form.first_name }}
+    {{ form.last_name }}
+    {{ form.email }}
+    {{ form.status(class="my-2") }}
+    {{ form.submit(class="mb-3") }}
+  </form>
+  {% for status in statuses %}
+      <h1 class="mt-3">{{ status[0].title() }} clients</h1>
+
+      {% for s in clients %}
+        {% if s.status == status[0] %}
+          <div class="row justify-content-centered">
+            <div class="col-9 col-md-10">
+              <h2 class="my-1">{{ s.first_name }} {{ s.last_name }}</h2>
+
+              {% if status[0] == 'active' %}
+                  <ul class="mb-3">
+                    <li>{{ s.email }}</li>
+                  </ul>
+              {% endif %}
+            </div>
+
+            <div class="col-3 col-md-2 text-end">
+              <a class="edit btn sec" href="{{ url_for('edit_client', id=s.id) }}">
+                Edit
+              </a>
+            </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+{% endblock content %}
+
+{% block end_scripts %}
+  <script>
+    const slideDown = element => element.style.height = `${element.scrollHeight}px`;
+    const slideUp = element => element.style.height = '0px';
+
+    document.getElementById("add-client").addEventListener("click", function () {
+      this.parentElement.style.display = "none";
+      slideDown(document.getElementById("add-client-form"));
+    });
+
+    document.getElementById("hide-form").addEventListener("click", function () {
+      slideUp(this.parentElement);
+      document.getElementById("add-client").parentElement.style.display = "block";
+    });
+  </script>
+{% endblock end_scripts %}

@@ -90,7 +90,7 @@ def send_confirmation_email(user, message):
         print("Confirmation email failed to send with code " + result.status_code, result.reason)
 
 
-def send_reminder_email(event, student, tutor, quote):
+def send_reminder_email(event, client, tutor, quote):
     api_key = app.config['MAILJET_KEY']
     api_secret = app.config['MAILJET_SECRET']
     mailjet = Client(auth=(api_key, api_secret), version='v3.1')
@@ -101,7 +101,7 @@ def send_reminder_email(event, student, tutor, quote):
     start_date = dt.strftime(parse(start_time), format="%A, %b %-d, %Y")
     start_time_formatted = re.sub(r'([-+]\d{2}):(\d{2})(?:(\d{2}))?$', r'\1\2\3', start_time)
 
-    tz_difference = student.timezone - teacher.timezone
+    tz_difference = client.timezone - teacher.timezone
 
     start_offset = dt.strptime(start_time_formatted, "%Y-%m-%dT%H:%M:%S%z") + datetime.timedelta(hours = tz_difference)
     end_time = event['end'].get('dateTime')
@@ -112,24 +112,24 @@ def send_reminder_email(event, student, tutor, quote):
 
     message, author, quote_header = verify_quote(quote)
 
-    if student.timezone is -2:
+    if client.timezone is -2:
         timezone = "Pacific"
-    elif student.timezone is -1:
+    elif client.timezone is -1:
         timezone = "Mountain"
-    elif student.timezone is 0:
+    elif client.timezone is 0:
         timezone = "Central"
-    elif student.timezone is 1:
+    elif client.timezone is 1:
         timezone = "Eastern"
     else:
         timezone = "your"
 
     location = event.get('location')
     if location is None:
-        location = student.location
+        location = client.location
 
-    cc_email = [{ "Email": student.parent_email }]
-    if student.secondary_email:
-        cc_email.append({ "Email": student.secondary_email })
+    cc_email = [{ "Email": client.parent_email }]
+    if client.secondary_email:
+        cc_email.append({ "Email": client.secondary_email })
     if teacher.email:
         cc_email.append({ "Email": teacher.email })
 
@@ -142,12 +142,12 @@ def send_reminder_email(event, student, tutor, quote):
                 },
                 "To": [
                     {
-                    "Email": student.email
+                    "Email": client.email
                     }
                 ],
                 "Cc": cc_email,
                 "Subject": "Reminder for " + event.get('summary') + " + a quote from " + author,
-                "HTMLPart": "Hi " + student.first_name + ", this is an automated reminder " + \
+                "HTMLPart": "Hi " + client.first_name + ", this is an automated reminder " + \
                     " that you are scheduled for a tutoring session with " + teacher.first_name + " " + \
                     teacher.last_name + " on " + start_date + " from  " + start_display + " to " + \
                     end_display + " " + timezone + " time. <br/><br/>" + "Location: " + location + \
@@ -164,14 +164,14 @@ def send_reminder_email(event, student, tutor, quote):
     result = mailjet.send.create(data=data)
 
     if result.status_code is 200:
-        print(student.first_name, student.last_name, start_display, timezone)
+        print(client.first_name, client.last_name, start_display, timezone)
     else:
-        print("Error for " + student.first_name + " with code " + str(result.status_code), result.reason)
+        print("Error for " + client.first_name + " with code " + str(result.status_code), result.reason)
 
 
-def weekly_report_email(scheduled_session_count, scheduled_hours, scheduled_student_count, \
+def weekly_report_email(scheduled_session_count, scheduled_hours, scheduled_client_count, \
     unscheduled_list, outsourced_session_count, outsourced_hours, \
-    outsourced_scheduled_student_count, outsourced_unscheduled_list, \
+    outsourced_scheduled_client_count, outsourced_unscheduled_list, \
     paused, now, quote):
 
     api_key = app.config['MAILJET_KEY']
@@ -183,15 +183,15 @@ def weekly_report_email(scheduled_session_count, scheduled_hours, scheduled_stud
     start_date = dt.strftime(parse(start), format="%b %-d")
     end = (now + datetime.timedelta(days=7, hours=31)).isoformat() + 'Z'
     end_date = dt.strftime(parse(end), format="%b %-d")
-    unscheduled_students = ', '.join(unscheduled_list)
-    if unscheduled_students == '':
-        unscheduled_students = "None"
-    outsourced_unscheduled_students = ', '.join(outsourced_unscheduled_list)
-    if outsourced_unscheduled_students == '':
-        outsourced_unscheduled_students = "None"
-    paused_students = ', '.join(paused)
-    if paused_students == '':
-        paused_students = "None"
+    unscheduled_clients = ', '.join(unscheduled_list)
+    if unscheduled_clients == '':
+        unscheduled_clients = "None"
+    outsourced_unscheduled_clients = ', '.join(outsourced_unscheduled_list)
+    if outsourced_unscheduled_clients == '':
+        outsourced_unscheduled_clients = "None"
+    paused_clients = ', '.join(paused)
+    if paused_clients == '':
+        paused_clients = "None"
 
     message, author, quote_header = verify_quote(quote)
 
@@ -215,12 +215,12 @@ def weekly_report_email(scheduled_session_count, scheduled_hours, scheduled_stud
                 ],
                 "Subject": "Weekly tutoring report for " + start_date + " to " + end_date,
                 "HTMLPart": "A total of " + scheduled_hours + " hours (" + scheduled_session_count + " sessions) " + \
-                    "are scheduled with Danny for " + scheduled_student_count + " students next week. <br/><br/>" + \
+                    "are scheduled with Danny for " + scheduled_client_count + " clients next week. <br/><br/>" + \
                     "An additional " + outsourced_hours + " hours (" + outsourced_session_count + " sessions) " + \
-                    "are scheduled with other tutors for " + outsourced_scheduled_student_count + " students. " + \
-                    "<br/><br/>Unscheduled active students for Danny: " + unscheduled_students + \
-                    "<br/>Unscheduled active students for other tutors: " + outsourced_unscheduled_students + \
-                    "<br/>Paused students: " + paused_students + \
+                    "are scheduled with other tutors for " + outsourced_scheduled_client_count + " clients. " + \
+                    "<br/><br/>Unscheduled active clients for Danny: " + unscheduled_clients + \
+                    "<br/>Unscheduled active clients for other tutors: " + outsourced_unscheduled_clients + \
+                    "<br/>Paused clients: " + paused_clients + \
                     "<br/><br/><br/>" + quote_header + '"' + message + '"' + "<br/>&ndash; " + author
             }
         ]

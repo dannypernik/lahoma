@@ -494,7 +494,7 @@ div.alert {
   }
 
   //#free-trial {
-    //background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../img/student2.jpg);
+    //background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../img/client2.jpg);
     //background-attachment: scroll;
   //}
 }
@@ -633,7 +633,7 @@ div.alert {
 
 // Hidden fields to be revealed //
 
-#parent-info, #student-info, #add-student-form, #add-tutor-form {
+#parent-info, #client-info, #add-client-form, #add-tutor-form {
   height: 0;
   transition: height 0.2s ease-out;
   overflow: hidden;

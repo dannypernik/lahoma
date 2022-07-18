@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import StringField, BooleanField, PasswordField, TextAreaField, SubmitField, IntegerField, RadioField, SelectField
 from wtforms.validators import ValidationError, InputRequired, DataRequired, Email, EqualTo, Length
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
-from app.models import User, Student, Teacher
+from app.models import User, Client, Teacher
 
 class InquiryForm(FlaskForm):
     first_name = StringField('First name', render_kw={"placeholder": "First name"}, \
@@ -50,11 +50,11 @@ def get_teachers():
 def teacher_name(Teacher):
     return Teacher.first_name + " " + Teacher.last_name
 
-class StudentForm(FlaskForm):
+class ClientForm(FlaskForm):
     first_name = StringField('First name', render_kw={"placeholder": "First name"}, \
         validators=[InputRequired()])
     last_name = StringField('Last name', render_kw={"placeholder": "Last name (optional)"})
-    email = StringField('Student Email address', render_kw={"placeholder": "Student Email address"}, \
+    email = StringField('Client Email address', render_kw={"placeholder": "Client Email address"}, \
         validators=[InputRequired(), Email(message="Please enter a valid email address")])
     timezone = IntegerField('Timezone', render_kw={"placeholder": "Timezone"}, \
         validators=[InputRequired()])

@@ -4,7 +4,7 @@
   <h1>The Best Next Step towards a College You Love</h1>
   <p>
     Well done for taking the initiative to seek test prep support for
-    you or your student. It's not always easy to ask for help! The SAT and ACT
+    you or your client. It's not always easy to ask for help! The SAT and ACT
     can be daunting endeavors, but we're here to make the process feel less
     stressful and more manageable.
   </p>
@@ -34,16 +34,16 @@
             <input type="radio" class="ms-1" name="relation" id="parent" value="parent">
             <label for="parent">Parent</label>
           </div>
-          <div id="student-wrapper" class="radio-wrapper">
-            <input type="radio" name="relation" id="student" value="student">
-            <label for="student">Student</label>
+          <div id="client-wrapper" class="radio-wrapper">
+            <input type="radio" name="relation" id="client" value="client">
+            <label for="client">Client</label>
           </div>
         </div>
       </div>
     </div>
 
-    <div id="student-info" class="row justify-content-center">
-      <div id="student-name" class="col-12 col-sm-6">
+    <div id="client-info" class="row justify-content-center">
+      <div id="client-name" class="col-12 col-sm-6">
         {{ form.first_name }}
       </div>
     </div>
@@ -67,8 +67,8 @@
   <script>
     const slideDown = element => element.style.height = `${element.scrollHeight}px`;
 
-    document.getElementById("student-wrapper").addEventListener("click", function () {
-      document.getElementById("student-info").style.height = "0px";
+    document.getElementById("client-wrapper").addEventListener("click", function () {
+      document.getElementById("client-info").style.height = "0px";
       document.getElementById("first_name").removeAttribute('required','');
       slideDown(document.getElementById("parent-info"));
       document.getElementById("parent_name").setAttribute('required','');
@@ -79,7 +79,7 @@
       document.getElementById("parent-info").style.height = "0px";
       document.getElementById("parent_name").removeAttribute('required','');
       document.getElementById("parent_email").removeAttribute('required','');
-      slideDown(document.getElementById("student-info"));
+      slideDown(document.getElementById("client-info"));
       document.getElementById("first_name").setAttribute('required','');
     });
   </script>

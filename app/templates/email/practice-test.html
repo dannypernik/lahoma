@@ -16,9 +16,9 @@
           {{ test }}. The test can be downloaded at the link below.
         {% endif %}
       {% else %}
-        we received a request from {{ student }} for a practice
+        we received a request from {{ client }} for a practice
         {% if test == 'test' %}SAT or ACT{% else %}{{ test }} (linked below){% endif %}
-        and wanted to ask your permission to follow up with your student regarding
+        and wanted to ask your permission to follow up with your client regarding
         test results and score analysis.
       {% endif %}
     </p>
@@ -26,9 +26,9 @@
     {% if test == 'test' %}
       <p>
         Several factors influence which test will be a better fit, so it will be helpful
-        to learn more about {{ student }}'s strengths and learning style.
+        to learn more about {{ client }}'s strengths and learning style.
         Would you have time for a brief phone call over the next few days?
-        {{ student }} is welcome to join too!
+        {{ client }} is welcome to join too!
       </p>
       <p>
         --
@@ -40,9 +40,9 @@
     {% else %}
       <p>
         {% if relation == 'parent' %}
-          Here are the next steps for {{ student }}:
+          Here are the next steps for {{ client }}:
         {% else %}
-          {{ student }}, here are your next steps on the path to a great score:
+          {{ client }}, here are your next steps on the path to a great score:
         {% endif %}
       </p>
 

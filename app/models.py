@@ -8,8 +8,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(32), index=True)
     last_name = db.Column(db.String(32), index=True)
-    username = db.Column(db.String(64), unique=True, index=True)
-    email = db.Column(db.String(64), index=True)
+    email = db.Column(db.String(64), unique=True, index=True)
     phone = db.Column(db.String(32), index=True)
     password_hash = db.Column(db.String(128))
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
@@ -26,18 +25,24 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
 
-class Student(db.Model):
+class Client(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(64), index=True)
     last_name = db.Column(db.String(64))
-    email = db.Column(db.String(64), index=True)
-    timezone = db.Column(db.Integer)
-    location = db.Column(db.String(128))
+    email = db.Column(db.String(64), unique=True, index=True)
+    phone = db.Column(db.String(32), index=True)
+    password_hash = db.Column(db.String(128))
     status = db.Column(db.String(24), default = "active", index=True)
     teacher_id = db.Column(db.Integer, db.ForeignKey('teacher.id'))
 
     def __repr__(self):
-        return '<Student {}>'.format(self.first_name + " " + self.last_name)
+        return '<Client {}>'.format(self.first_name + " " + self.last_name)
+    
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
 
 class Teacher(db.Model):
@@ -45,9 +50,9 @@ class Teacher(db.Model):
     first_name = db.Column(db.String(64), index=True)
     last_name = db.Column(db.String(64))
     email = db.Column(db.String(64), index=True)
-    timezone = db.Column(db.Integer)
+    is_admin = db.Column(db.Boolean)
     status = db.Column(db.String(24), default = "active", index=True)
-    students = db.relationship('Student', backref='teacher', lazy='dynamic')
+    clients = db.relationship('Client', backref='teacher', lazy='dynamic')
 
     def __repr__(self):
         return '<Teacher {}>'.format(self.first_name + " " + self.last_name)

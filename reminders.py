@@ -9,7 +9,7 @@ from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from app import app
 from dotenv import load_dotenv
-from app.models import Student, Tutor
+from app.models import Client, Teacher
 from app.email import send_reminder_email, weekly_report_email
 import requests
 
@@ -73,30 +73,30 @@ def main():
             events.append(events_result[e])
 
     reminder_list = []
-    active_students = Student.query.filter_by(status='active')
-    paused_students = Student.query.filter_by(status='paused')
+    active_clients = Client.query.filter_by(status='active')
+    paused_clients = Client.query.filter_by(status='paused')
 
     # Use fallback quote if request fails
     quote = None
     quote = requests.get("https://zenquotes.io/api/today")
 
-    def full_name(student):
-        if student.last_name == "":
-            name = student.first_name
+    def full_name(client):
+        if client.last_name == "":
+            name = client.first_name
         else:
-            name = student.first_name + " " + student.last_name
+            name = client.first_name + " " + client.last_name
         return name
 
     print("Session reminders for " + upcoming_start_formatted + ":")
 
-    # Send reminder email to students ~2 days in advance
+    # Send reminder email to clients ~2 days in advance
     for event in events:
-        for student in active_students:
-            name = full_name(student)
-            tutor = Teacher.query.get_or_404(student.teacher_id)
+        for client in active_clients:
+            name = full_name(client)
+            tutor = Teacher.query.get_or_404(client.teacher_id)
             if " " + name + " and" in event.get('summary'):
                 reminder_list.append(name)
-                send_reminder_email(event, student, tutor, quote)
+                send_reminder_email(event, client, tutor, quote)
 
     if len(reminder_list) is 0:
         print("No reminders sent.")
@@ -119,8 +119,8 @@ def main():
     unscheduled_list = []
     outsourced_unscheduled_list = []
     paused_list = []
-    scheduled_students = set()
-    outsourced_scheduled_students = set()
+    scheduled_clients = set()
+    outsourced_scheduled_clients = set()
 
     tutoring_hours = 0
     session_count = 0
@@ -138,46 +138,46 @@ def main():
                 event_details = [e.get('summary'), hours]
                 week_events_list.append(event_details)
 
-        #Get number of active students, number of sessions, and list of unscheduled students
-        for student in active_students:
-            name = full_name(student)
+        #Get number of active clients, number of sessions, and list of unscheduled clients
+        for client in active_clients:
+            name = full_name(client)
             name_check = " " + name + " and"
             if any(name_check in nest[0] for nest in week_events_list):
-                print(name + " scheduled with " + student.teacher.first_name)
+                print(name + " scheduled with " + client.teacher.first_name)
                 for x in week_events_list:
                     count = 0
                     hours = 0
                     if name_check in x[0]:
                         count += 1
                         hours += x[1]
-                        if student.teacher_id == 1:
-                            scheduled_students.add(name)
+                        if client.teacher_id == 1:
+                            scheduled_clients.add(name)
                             session_count += count
                             tutoring_hours += hours
                         else:
-                            outsourced_scheduled_students.add(name)
+                            outsourced_scheduled_clients.add(name)
                             outsourced_session_count += count
                             outsourced_hours += hours
-            elif student.teacher_id == 1:
+            elif client.teacher_id == 1:
                 unscheduled_list.append(name)
                 print(name + " unscheduled with Danny")
             else:
                 outsourced_unscheduled_list.append(name)
-                print(name + " unscheduled with " + student.teacher.first_name)
+                print(name + " unscheduled with " + client.teacher.first_name)
 
-        for student in paused_students:
-            name = full_name(student)
+        for client in paused_clients:
+            name = full_name(client)
             paused_list.append(name)
 
-        weekly_report_email(str(session_count), str(tutoring_hours), str(len(scheduled_students)), \
+        weekly_report_email(str(session_count), str(tutoring_hours), str(len(scheduled_clients)), \
             unscheduled_list, str(outsourced_session_count), str(outsourced_hours), \
-            str(len(outsourced_scheduled_students)), outsourced_unscheduled_list, \
+            str(len(outsourced_scheduled_clients)), outsourced_unscheduled_list, \
             paused_list, today, quote)
 
 
         # Call the Sheets API
         #OPT_SS_ID = '1M6Xs6zLR_QdPpOJYO0zaZOwJZ6dxdXsURD2PkpP2Vis'
-        #STUDENT_SUMMARY_RANGE = 'Student summary!A1:Q'
+        #STUDENT_SUMMARY_RANGE = 'Client summary!A1:Q'
         #sheets_service = build('sheets', 'v4', credentials=creds)
 
         #sheet = sheets_service.spreadsheets()
