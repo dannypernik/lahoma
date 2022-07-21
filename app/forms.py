@@ -44,6 +44,20 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Log in')
 
 
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password', render_kw={'placeholder': 'New password'}, \
+        validators=[DataRequired()])
+    password2 = PasswordField('Repeat Password', render_kw={'placeholder': 'Verify password'}, \
+        validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Save password')
+
+
+class RequestPasswordResetForm(FlaskForm):
+    email = StringField('Email address', render_kw={'placeholder': 'Email address'}, \
+        validators=[InputRequired(), Email(message='Please enter a valid email address')])
+    submit = SubmitField('Request password reset')
+
+
 def get_teachers():
     return Teacher.query
 
@@ -51,18 +65,15 @@ def teacher_name(Teacher):
     return Teacher.first_name + " " + Teacher.last_name
 
 class ClientForm(FlaskForm):
-    first_name = StringField('First name', render_kw={"placeholder": "First name"}, \
+    first_name = StringField('First name', render_kw={"placeholder": "First name *"}, \
         validators=[InputRequired()])
-    last_name = StringField('Last name', render_kw={"placeholder": "Last name (optional)"})
-    email = StringField('Client Email address', render_kw={"placeholder": "Client Email address"}, \
+    last_name = StringField('Last name', render_kw={"placeholder": "Last name"})
+    email = StringField('Client Email address', render_kw={"placeholder": "Email address *"}, \
         validators=[InputRequired(), Email(message="Please enter a valid email address")])
-    timezone = IntegerField('Timezone', render_kw={"placeholder": "Timezone"}, \
-        validators=[InputRequired()])
-    location = StringField('Location', render_kw={"placeholder": "Location"}, \
-        validators=[InputRequired()])
-    status = SelectField('Status', choices=[('active', 'Active'),('paused','Paused'),('inactive','Inactive')])
-    teacher_id = QuerySelectField('Tutor', default=1, query_factory=get_teachers, get_label=teacher_name, \
-        validators=[InputRequired()])
+    phone = StringField('Phone number', render_kw={'placeholder': 'Phone number'})
+    status = SelectField('Status', choices=[('active', 'Active'),('inactive','Inactive')], \
+        validate_choice=False)
+    notes = TextAreaField('Notes', render_kw={'placeholder': 'Notes', 'rows': '3'})
     submit = SubmitField('Save')
 
 

@@ -1,0 +1,7 @@
+{{ user.first_name }}, you have been accepted a member of Lahoma Healing Arts. Please click the link below to choose your password and confirm your account.
+
+{{ url_for('set_password', token=token, _external=True) }}
+
+
+"We don't have to do all of it alone. We were never meant to."
+- Brene Brown
