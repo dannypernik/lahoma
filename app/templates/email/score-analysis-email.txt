@@ -1,8 +1,0 @@
-Hi {{ client.parent_name }}, thank you for requesting your client's practice test score analysis. You should receive the analysis within 48 hours. Feel free to reply to this address with any questions in the meantime.
-
-Client name: {{ client.first_name }} {{ client.last_name }}
-School: {{ school }}
-
-
-"We don't have to do all of it alone. We were never meant to."
-- Brene Brown

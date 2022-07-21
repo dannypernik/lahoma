@@ -9,10 +9,10 @@
 {% endblock head %}
 
 {% block navbar %}
-  {% with messages = get_flashed_messages() %}
+  {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
-      {% for message in messages %}
-        <div class="row justify-content-center alert alert-info">
+      {% for category, message in messages %}
+        <div class="row justify-content-center flash {{ category }}">
           <div class="col-sm-11 col-md-10 col-lg-9">
             <div role="alert">{{ message }}</div>
           </div>
@@ -75,40 +75,8 @@
       </div>
     </div>
 
-    <section class="drawer" id="site-menu" data-drawer-target>
-      <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
-      <div class="drawer__wrapper">
-        <div class="drawer__header">
-          <div class="drawer__title">
-
-          </div>
-          <button class="drawer__close" data-drawer-close aria-label="Close Drawer"></button>
-        </div>
-        <div class="drawer__content">
-          <a href="{{ url_for('home') }}">
-            <div class="menu-link">
-              <p>Home</p>
-            </div>
-          </a>
-          <a href="{{ url_for('iam') }}">
-            <div class="menu-link">
-              <p>I Am</p>
-            </div>
-          </a>
-          <a href="{{ url_for('offerings') }}">
-            <div class="menu-link">
-              <p>Offerings</p>
-            </div>
-          </a>
-          <a href="#contact" data-drawer-close>
-            <div class="menu-link">
-              <p>Contact</p>
-            </div>
-          </a>
-        </div>
-      </div>
-    </section>
-
+    {% include '_menu-content.html' %}
+    
     <div id="benefits" class="home-section">
       <div class="row justify-content-center">
         <div class="col-11 col-md-8">
